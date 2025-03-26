@@ -4,9 +4,6 @@ FROM node:18-alpine AS base
 # Set working directory
 WORKDIR /app
 
-# Install pnpm (if needed)
-RUN corepack enable && npm install -g pnpm
-
 # Copy package.json and lock file
 COPY package.json package-lock.json* ./
 
