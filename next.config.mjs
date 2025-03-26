@@ -1,3 +1,5 @@
+import path from 'path'
+
 let userConfig = undefined
 try {
   userConfig = await import('./v0-user-next.config')
@@ -21,6 +23,16 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  webpack: (config) => {
+    // Add alias configuration
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+      '@/components': path.resolve(__dirname, 'components'),
+      '@/components/ui': path.resolve(__dirname, 'components/ui')
+    }
+    return config
+  }
 }
 
 mergeConfig(nextConfig, userConfig)
